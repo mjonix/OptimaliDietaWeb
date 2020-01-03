@@ -30,7 +30,7 @@ public class DietosSudarymasTest {
     }
 
     @Test
-    public void testMedziagos() {
+    public void testPateiktiMedziaguNormas() {
         int amzius = 23;
         int lytis = 1;
         int ugis = 186;
@@ -41,7 +41,8 @@ public class DietosSudarymasTest {
         double kmi = ds.kmi(ugis, svoris);
         String teisingasRezultatas = "Rekomenduojama suvartoti: 124 - 165g baltymų, 455 - 496g angliavandenių, 55 - 73g riebalų,<br> "
                 + "0.99 - 1.01g kalcio ir 41 - 51g skaidulinių medžiagų.";
-        String gautasRezultatas = ds.medziagos(kmi, aktyvumas, poreikis, amzius, lytis);
+        String gautasRezultatas = ds.pateiktiMedziaguNormas(kmi, aktyvumas, poreikis, amzius, lytis);
+        System.out.println(teisingasRezultatas + "\n\n" + gautasRezultatas);
         assertEquals(teisingasRezultatas, gautasRezultatas);
     }
 }

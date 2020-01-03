@@ -6,7 +6,7 @@ tačiau ateityje planuojama pridėti daugiau funkcijų.
 # Jeigu norite paleisti aplikaciją savo įrenginyje
 
 Failas DUOMENU_BAZE.db turi būti serveryje, konfigūracijos direktorijoje. Jeigu duomenų bazę norite laikyti kitoje
-direktorijoje, reikia pakeisti failo /src/java/dietossudarymas/DietosSudarymas.java 98 eilutę, nurodant teisingą duomenų bazės
+direktorijoje, reikia pakeisti failo /src/java/dietossudarymas/DietosSudarymas.java 133 eilutę, nurodant teisingą duomenų bazės
 lokaciją. Aplikacijos įvykdymas pradedamas paleidžiant failą /web/index.jsp.
 
 # Naudojamos technologijos

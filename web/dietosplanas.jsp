@@ -81,9 +81,9 @@
                     int poreikis = ds.kilokalorijuPoreikis(lytis, ugis, svoris, amzius, aktyvumas, tikslas);
                     double kmi = ds.kmi(ugis, svoris);
                 %>
-                Pagal pateiktus duomenis, rekomenduojama paros energijos suvartojimo norma yra: <%= poreikis%>kcal <br> <%= ds.medziagos(kmi,
+                Pagal pateiktus duomenis, rekomenduojama paros energijos suvartojimo norma yra: <%= poreikis%>kcal <br> <%= ds.pateiktiMedziaguNormas(kmi,
                 aktyvumas, poreikis, amzius, lytis)%><br><br>Pavyzdinė dieta:<br><br>
-                <%=ds.dietosSudarymas(kmi, poreikis, aktyvumas, amzius, lytis, kartai, laikotarpis, nepageidaujamaKategorija,
+                <%=ds.parinktiDieta(kmi, poreikis, aktyvumas, amzius, lytis, kartai, laikotarpis, nepageidaujamaKategorija,
                 new ArrayList<String>(), ignoruojamiKriterijai, mesa)%>
 
                 <form  method="post">
