@@ -151,7 +151,7 @@
             var elementas;
             var radio = forma.elements[pavadinimas];
 
-            for (var i = 0, lenght = radio.length; i < lenght; i++) {
+            for (var i = 0, length = radio.length; i < length; i++) {
                 if (radio[i].checked) {
                     elementas = radio[i].value;
                     break;
