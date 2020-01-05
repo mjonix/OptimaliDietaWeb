@@ -22,6 +22,13 @@ public class DietosSudarymas {
         return (10000 * Double.valueOf(svoris)) / (Double.valueOf(ugis) * Double.valueOf(ugis));
     }
 
+    public double suapvalinti(double skaicius) {
+        skaicius /= 1000000;
+        long daugiklis = (long) Math.pow(10, 2);
+        skaicius = skaicius * daugiklis;
+        return (double) Math.round(skaicius) / daugiklis;
+    }
+
     public int kilokalorijuPoreikis(int lytis, int ugis, int svoris, int amzius, int aktyvumas, int tikslas) {
         double aktyvumoKoeficientas = 1.5;
         if (aktyvumas == 2) {
@@ -126,7 +133,7 @@ public class DietosSudarymas {
         }
     }
 
-    private ArrayList<MaistoProduktas> gautiProduktus(ArrayList<String> nepageidaujamaKategorija,
+    public ArrayList<MaistoProduktas> gautiProduktus(ArrayList<String> nepageidaujamaKategorija,
             ArrayList<String> nepageidaujamiProduktai) throws SQLException, ClassNotFoundException {
         Class.forName("org.sqlite.JDBC");
         Path kelias = Paths.get("");

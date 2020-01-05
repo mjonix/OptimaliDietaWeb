@@ -1,5 +1,4 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="java.sql.*"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="dietossudarymas.DietosSudarymas"%>
@@ -11,6 +10,14 @@
     </head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <body id="main">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <form action="http://localhost:8080/OptimaliDietaWeb/index.jsp">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Automatinis asmeninio dietos plano sudarymas</button>
+            </form>
+            <form action="http://localhost:8080/OptimaliDietaWeb/duomenubaze.jsp">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Maisto produktų duomenų bazė</button>
+            </form>
+        </nav>
         <div class="container">
             <div class="jumbotron">
                 <%

@@ -10,6 +10,14 @@
     </head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <body id="main">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <form action="http://localhost:8080/OptimaliDietaWeb/index.jsp">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Automatinis asmeninio dietos plano sudarymas</button>
+            </form>
+            <form action="http://localhost:8080/OptimaliDietaWeb/duomenubaze.jsp">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Maisto produktų duomenų bazė</button>
+            </form>
+        </nav>
         <div class="container">
             <div class="page-header">
                 <h1>Automatinis asmeninio dietos plano sudarymas</h1>
@@ -76,6 +84,7 @@
 
 
     </body>
+
     <style type="text/css">
         .jumbotron {
             background-image: url("images/dieta.jpg");
@@ -142,7 +151,7 @@
             var elementas;
             var radio = forma.elements[pavadinimas];
 
-            for (var i = 0, len = radio.length; i < len; i++) {
+            for (var i = 0, lenght = radio.length; i < lenght; i++) {
                 if (radio[i].checked) {
                     elementas = radio[i].value;
                     break;

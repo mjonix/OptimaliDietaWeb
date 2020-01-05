@@ -2,15 +2,15 @@ package dietossudarymas;
 
 public class MaistoProduktas {
 
-    String pavadinimas;
+    public String pavadinimas;
+    public int kilokalorijos;
+    public int baltymai;
+    public int angliavandeniai;
+    public int riebalai;
+    public int skaidulines;
+    public int kalcis;
+    public int cholesterolis;
     String kategorija;
-    int kilokalorijos;
-    int baltymai;
-    int angliavandeniai;
-    int riebalai;
-    int skaidulines;
-    int kalcis;
-    int cholesterolis;
     int porcija;
     int laikas;
     boolean skystis;
