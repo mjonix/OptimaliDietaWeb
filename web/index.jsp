@@ -76,7 +76,7 @@
                     <br><br>
 
                     <input type="checkbox" name="mesa" value="1"/>Būtinai įtraukti mėsišką produktą pietums<br>
-                    <input type="submit" value="Sudaryti dietą" class="btn-success btn-xs" id="sudarytiDieta">
+                    <input type="submit" value="Sudaryti dietą" class="btn-success btn-xs">
                 </form>
                 </p>
             </div>

@@ -94,7 +94,7 @@
                 new ArrayList<String>(), ignoruojamiKriterijai, mesa)%>
 
                 <form  method="post">
-                    <input type="submit" value="Sudaryti dietą iš naujo"  class="btn-success btn-xs" id="isNaujo">
+                    <input type="submit" value="Sudaryti dietą iš naujo"  class="btn-success btn-xs">
                 </form>
             </div>
         </div>
