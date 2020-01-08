@@ -1,6 +1,6 @@
 # Aprašymas
 
-Web aplikacija, skirta asmeniniam optimalios dietos plano sudarymui. Kol kas įgyvendintas tik automatinis dietos parinkimas,
+Web aplikacija, skirta asmeniniam optimalios dietos plano sudarymui. Kol kas įgyvendintas tik automatinis dietos parinkimas ir maisto produktų duomenų bazės peržiūra,
 tačiau ateityje planuojama pridėti daugiau funkcijų.
 
 # Jeigu norite paleisti aplikaciją savo įrenginyje
