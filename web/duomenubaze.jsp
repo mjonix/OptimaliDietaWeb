@@ -7,6 +7,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Maisto produktų duomenų bazė</title>
     </head>
+    
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
     <body id="main">
@@ -23,10 +24,10 @@
                 <h1>Maisto produktų duomenų bazė</h1>
             </div>
             <div class="jumbotron">
-                <form id="paieska">                
+                <form id="paieska">
                     <input  placeholder="Ieškoti pagal pavadinimą" size="33"> 
                     (Paspauskite stulpelio, pagal kurį norite rūšiuoti, pavadinimą)
-                </form>               
+                </form>
                 <table>
                     <tr>
                         <td><input value="Produkto pavadinimas"   style="background: black; color: #F0FD23; width:230px" type="submit" onclick="rusiuoti(0)" id="0"></td>
@@ -36,7 +37,7 @@
                         <td><input value="Riebalai (%)" style="background: black; color: #F0FD23; width:94px" type="submit" onclick="rusiuoti(4)" id="4"></td>
                         <td><input value="Cholesterolis (%)" style="background: black; color: #F0FD23; width:134px" type="submit" onclick="rusiuoti(5)" id="5"></td>
                         <td><input value="Kalcis (%)" style="background: black; color: #F0FD23; width:83px" type="submit" onclick="rusiuoti(6)" id="6"></td>
-                        <td><input value="Skaidulinės m. (%)"  type="submit" onclick="rusiuoti(7)" class= "antraste" id="7"></td>
+                        <td><input value="Skaidulinės m. (%)" style="background: black; color: #F0FD23; width:143px" type="submit" onclick="rusiuoti(7)" id="7"></td>
                     </tr>
                 </table> 
                     <table id="produktuLentele">
@@ -61,10 +62,6 @@
 
     <style type="text/css">
         .jumbotron {
-            background-image: url("images/dieta.jpg");
-            color: white;
-        }
-        .antraste {
             background-image: url("images/dieta.jpg");
             color: white;
         }
