@@ -39,7 +39,8 @@
                         <td><input value="Kalcis (%)" style="background: black; color: #F0FD23; width:83px" type="submit" onclick="rusiuoti(6)" id="6"></td>
                         <td><input value="Skaidulinės m. (%)" style="background: black; color: #F0FD23; width:143px" type="submit" onclick="rusiuoti(7)" id="7"></td>
                     </tr>
-                </table> 
+                </table>
+                <div style="overflow:scroll; overflow-x: hidden; height:500px;">
                     <table id="produktuLentele">
                         <%  DietosSudarymas ds = new DietosSudarymas();
                             ArrayList<MaistoProduktas> produktai = ds.gautiProduktus(new ArrayList<String>(), new ArrayList<String>());
@@ -56,11 +57,12 @@
                         </tr>
                         <%}%>
                     </table>
+                </div>
             </div>
         </div>
     </body>
 
-    <style type="text/css">
+    <style type="text/css">      
         .jumbotron {
             background-image: url("images/dieta.jpg");
             color: white;

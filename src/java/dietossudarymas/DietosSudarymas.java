@@ -168,7 +168,7 @@ public class DietosSudarymas {
         return produktai;
     }
 
-    private boolean imanomaSudarytiDieta(ArrayList<MaistoProduktas> produktai, int kartai, boolean mesaPietums) {
+    public boolean imanomaSudarytiDieta(ArrayList<MaistoProduktas> produktai, int kartai, boolean mesaPietums) {
         int p0 = 0, p1 = 0, p2 = 0, p3 = 0, pm = 0;
         MaistoProduktas produktas;
         for (int i = 0; i < produktai.size(); i++) {

@@ -23,10 +23,7 @@
                 <h1>Automatinis asmeninio dietos plano sudarymas</h1>
             </div>
             <div class="jumbotron">
-                <p>
                 <form action="http://localhost:8080/OptimaliDietaWeb/dietosplanas.jsp" id="asmeniniaiParametrai">  <br>
-
-
                     Lytis: <input type="radio" name="lytis" value="1"/>Vyras
                     <input type="radio" name="lytis" value="2"/>Moteris<br><br>
 
@@ -78,11 +75,8 @@
                     <input type="checkbox" name="mesa" value="1"/>Būtinai įtraukti mėsišką produktą pietums<br>
                     <input type="submit" value="Sudaryti dietą" class="btn-success btn-xs">
                 </form>
-                </p>
             </div>
         </div>
-
-
     </body>
 
     <style type="text/css">
