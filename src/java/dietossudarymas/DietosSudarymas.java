@@ -173,20 +173,20 @@ public class DietosSudarymas {
         MaistoProduktas produktas;
         for (int i = 0; i < produktai.size(); i++) {
             produktas = produktai.get(i);
-            if (produktas.laikas == 0 && !produktas.skystis) {
+            if (produktas.getLaikas() == 0 && !produktas.getSkystis()) {
                 p0++;
             }
-            if (produktas.laikas == 1 && !produktas.skystis) {
+            if (produktas.getLaikas() == 1 && !produktas.getSkystis()) {
                 p1++;
             }
-            if (produktas.laikas == 2 && !produktas.skystis) {
+            if (produktas.getLaikas() == 2 && !produktas.getSkystis()) {
                 p2++;
             }
-            if (produktas.laikas == 3 && !produktas.skystis) {
+            if (produktas.getLaikas() == 3 && !produktas.getSkystis()) {
                 p3++;
             }
-            if (produktas.laikas == 2 && produktas.kategorija.contains("mėsa")
-                    && !produktas.skystis) {
+            if (produktas.getLaikas() == 2 && produktas.getKategorija().contains("mėsa")
+                    && !produktas.getSkystis()) {
                 pm++;
             }
         }
@@ -245,9 +245,9 @@ public class DietosSudarymas {
             while (true) {
                 indeksas = r.nextInt(produktai.size());
                 produktas = produktai.get(indeksas);
-                if (produktas.laikas == 1) {
+                if (produktas.getLaikas() == 1) {
                     pusryciuPr.add(indeksas);
-                    pusryciuKiekiai.add(((pusryciuKal * 100) / produktas.kilokalorijos + 5) / 10 * 10);
+                    pusryciuKiekiai.add(((pusryciuKal * 100) / produktas.getKilokalorijos() + 5) / 10 * 10);
                     break;
                 }
             }
@@ -260,16 +260,16 @@ public class DietosSudarymas {
                     kartojimas++;
                     indeksas = r.nextInt(produktai.size());
                     produktas = produktai.get(indeksas);
-                    if (produktas.laikas == 0 && !kategorijos.contains(produktas.kategorija)
-                            && (leidimas || !produktas.skystis)) {
+                    if (produktas.getLaikas() == 0 && !kategorijos.contains(produktas.getKategorija())
+                            && (leidimas || !produktas.getSkystis())) {
 
-                        if (produktas.skystis) {
+                        if (produktas.getSkystis()) {
                             leidimas = false;
                         }
-                        kategorijos.add(produktas.kategorija);
+                        kategorijos.add(produktas.getKategorija());
                         priespieciuPr.add(indeksas);
-                        priespieciuKiekiai.add(produktas.porcija);
-                        turimosKalorijos += (produktas.porcija * produktas.kilokalorijos) / 100;
+                        priespieciuKiekiai.add(produktas.getPorcija());
+                        turimosKalorijos += (produktas.getPorcija() * produktas.getKilokalorijos()) / 100;
                     }
                     if (turimosKalorijos + 30 > priespieciuKal) {
                         break;
@@ -277,16 +277,16 @@ public class DietosSudarymas {
                     if (kartojimas % 10 == 0 && priespieciuPr.size() > 1) {
                         indeksas = r.nextInt(priespieciuPr.size());
                         produktas = produktai.get(priespieciuPr.get(indeksas));
-                        if (!produktas.skystis
-                                && (priespieciuKiekiai.get(indeksas) / produktas.porcija < 2)) {
-                            turimosKalorijos += (produktas.porcija * produktas.kilokalorijos) / 100;
-                            priespieciuKiekiai.set(indeksas, (produktas.porcija / 2) + priespieciuKiekiai.get(indeksas));
+                        if (!produktas.getSkystis()
+                                && (priespieciuKiekiai.get(indeksas) / produktas.getPorcija() < 2)) {
+                            turimosKalorijos += (produktas.getPorcija() * produktas.getKilokalorijos()) / 100;
+                            priespieciuKiekiai.set(indeksas, (produktas.getPorcija() / 2) + priespieciuKiekiai.get(indeksas));
                         } else {
                             papildomas++;
                             if (papildomas % 10 == 0) {
-                                if (!produktas.skystis) {
-                                    turimosKalorijos += ((produktas.porcija / 2) * produktas.kilokalorijos) / 100;
-                                    priespieciuKiekiai.set(indeksas, (produktas.porcija / 2) + priespieciuKiekiai.get(indeksas));
+                                if (!produktas.getSkystis()) {
+                                    turimosKalorijos += ((produktas.getPorcija() / 2) * produktas.getKilokalorijos()) / 100;
+                                    priespieciuKiekiai.set(indeksas, (produktas.getPorcija() / 2) + priespieciuKiekiai.get(indeksas));
                                 }
                             }
                         }
@@ -304,25 +304,25 @@ public class DietosSudarymas {
                 kartojimas++;
                 indeksas = r.nextInt(produktai.size());
                 produktas = produktai.get(indeksas);
-                if (produktas.laikas == 2 && !kategorijos.contains(produktas.kategorija)
-                        && (leidimas || !produktas.skystis)
-                        && (!darzove || !produktas.kategorija.contains("daržovės"))) {
-                    if (produktas.kategorija.contains("daržovės")) {
+                if (produktas.getLaikas() == 2 && !kategorijos.contains(produktas.getKategorija())
+                        && (leidimas || !produktas.getSkystis())
+                        && (!darzove || !produktas.getKategorija().contains("daržovės"))) {
+                    if (produktas.getKategorija().contains("daržovės")) {
                         darzove = true;
                     }
-                    if (produktas.skystis) {
+                    if (produktas.getSkystis()) {
                         leidimas = false;
                     }
-                    kategorijos.add(produktas.kategorija);
+                    kategorijos.add(produktas.getKategorija());
                     pietuPr.add(indeksas);
-                    pietuKiekiai.add(produktas.porcija);
-                    turimosKalorijos += (produktas.porcija * produktas.kilokalorijos) / 100;
+                    pietuKiekiai.add(produktas.getPorcija());
+                    turimosKalorijos += (produktas.getPorcija() * produktas.getKilokalorijos()) / 100;
                 }
                 if (turimosKalorijos + 30 > pietuKal) {
                     if (mesaPietums) {
                         leidimas = false;
                         for (int i = 0; i < pietuPr.size(); i++) {
-                            if (produktai.get(pietuPr.get(i)).kategorija.contains("mėsa")) {
+                            if (produktai.get(pietuPr.get(i)).getKategorija().contains("mėsa")) {
                                 leidimas = true;
                             }
                         }
@@ -345,16 +345,16 @@ public class DietosSudarymas {
                 if (kartojimas % 10 == 0 && pietuPr.size() > 1) {
                     indeksas = r.nextInt(pietuPr.size());
                     produktas = produktai.get(pietuPr.get(indeksas));
-                    if (!produktas.skystis
-                            && (pietuKiekiai.get(indeksas) / produktas.porcija < 2)) {
-                        turimosKalorijos += ((produktas.porcija / 2) * produktas.kilokalorijos) / 100;
-                        pietuKiekiai.set(indeksas, (produktas.porcija / 2) + pietuKiekiai.get(indeksas));
+                    if (!produktas.getSkystis()
+                            && (pietuKiekiai.get(indeksas) / produktas.getPorcija() < 2)) {
+                        turimosKalorijos += ((produktas.getPorcija() / 2) * produktas.getKilokalorijos()) / 100;
+                        pietuKiekiai.set(indeksas, (produktas.getPorcija() / 2) + pietuKiekiai.get(indeksas));
                     } else {
                         papildomas++;
                         if (papildomas % 10 == 0) {
-                            if (!produktas.skystis) {
-                                turimosKalorijos += (produktas.porcija * produktas.kilokalorijos) / 100;
-                                pietuKiekiai.set(indeksas, (produktas.porcija / 2) + pietuKiekiai.get(indeksas));
+                            if (!produktas.getSkystis()) {
+                                turimosKalorijos += (produktas.getPorcija() * produktas.getKilokalorijos()) / 100;
+                                pietuKiekiai.set(indeksas, (produktas.getPorcija() / 2) + pietuKiekiai.get(indeksas));
                             }
                         }
                     }
@@ -371,16 +371,16 @@ public class DietosSudarymas {
                     kartojimas++;
                     indeksas = r.nextInt(produktai.size());
                     produktas = produktai.get(indeksas);
-                    if (produktas.laikas == 0 && !kategorijos.contains(produktas.kategorija)
-                            && (leidimas || !produktas.skystis)) {
+                    if (produktas.getLaikas() == 0 && !kategorijos.contains(produktas.getKategorija())
+                            && (leidimas || !produktas.getSkystis())) {
 
-                        if (produktas.skystis) {
+                        if (produktas.getSkystis()) {
                             leidimas = false;
                         }
-                        kategorijos.add(produktas.kategorija);
+                        kategorijos.add(produktas.getKategorija());
                         pavakariuPr.add(indeksas);
-                        pavakariuKiekiai.add(produktas.porcija);
-                        turimosKalorijos += (produktas.porcija * produktas.kilokalorijos) / 100;
+                        pavakariuKiekiai.add(produktas.getPorcija());
+                        turimosKalorijos += (produktas.getPorcija() * produktas.getKilokalorijos()) / 100;
                     }
                     if (turimosKalorijos + 30 > pavakariuKal) {
                         break;
@@ -388,16 +388,16 @@ public class DietosSudarymas {
                     if (kartojimas % 10 == 0 && pavakariuPr.size() > 1) {
                         indeksas = r.nextInt(pavakariuPr.size());
                         produktas = produktai.get(pavakariuPr.get(indeksas));
-                        if (!produktas.skystis
-                                && (pavakariuKiekiai.get(indeksas) / produktas.porcija < 2)) {
-                            turimosKalorijos += (produktas.porcija * produktas.kilokalorijos) / 100;
-                            pavakariuKiekiai.set(indeksas, (produktas.porcija / 2) + pavakariuKiekiai.get(indeksas));
+                        if (!produktas.getSkystis()
+                                && (pavakariuKiekiai.get(indeksas) / produktas.getPorcija() < 2)) {
+                            turimosKalorijos += (produktas.getPorcija() * produktas.getKilokalorijos()) / 100;
+                            pavakariuKiekiai.set(indeksas, (produktas.getPorcija() / 2) + pavakariuKiekiai.get(indeksas));
                         } else {
                             papildomas++;
                             if (papildomas % 10 == 0) {
-                                if (!produktas.skystis) {
-                                    turimosKalorijos += ((produktas.porcija / 2) * produktas.kilokalorijos) / 100;
-                                    pavakariuKiekiai.set(indeksas, (produktas.porcija / 2) + pavakariuKiekiai.get(indeksas));
+                                if (!produktas.getSkystis()) {
+                                    turimosKalorijos += ((produktas.getPorcija() / 2) * produktas.getKilokalorijos()) / 100;
+                                    pavakariuKiekiai.set(indeksas, (produktas.getPorcija() / 2) + pavakariuKiekiai.get(indeksas));
                                 }
                             }
                         }
@@ -414,16 +414,16 @@ public class DietosSudarymas {
                 kartojimas++;
                 indeksas = r.nextInt(produktai.size());
                 produktas = produktai.get(indeksas);
-                if (produktas.laikas == 3 && !kategorijos.contains(produktas.kategorija)
-                        && (leidimas || !produktas.skystis)) {
+                if (produktas.getLaikas() == 3 && !kategorijos.contains(produktas.getKategorija())
+                        && (leidimas || !produktas.getSkystis())) {
 
-                    if (produktas.skystis) {
+                    if (produktas.getSkystis()) {
                         leidimas = false;
                     }
-                    kategorijos.add(produktas.kategorija);
+                    kategorijos.add(produktas.getKategorija());
                     vakarienesPr.add(indeksas);
-                    vakarienesKiekiai.add(produktas.porcija);
-                    turimosKalorijos += (produktas.porcija * produktas.kilokalorijos) / 100;
+                    vakarienesKiekiai.add(produktas.getPorcija());
+                    turimosKalorijos += (produktas.getPorcija() * produktas.getKilokalorijos()) / 100;
                 }
                 if (turimosKalorijos + 30 > vakarienesKal) {
                     break;
@@ -431,16 +431,16 @@ public class DietosSudarymas {
                 if (kartojimas % 10 == 0 && vakarienesPr.size() > 1) {
                     indeksas = r.nextInt(vakarienesPr.size());
                     produktas = produktai.get(vakarienesPr.get(indeksas));
-                    if (!produktas.skystis
-                            && (vakarienesKiekiai.get(indeksas) / produktas.porcija < 2)) {
-                        turimosKalorijos += (produktas.porcija * produktas.kilokalorijos) / 100;
-                        vakarienesKiekiai.set(indeksas, (produktas.porcija / 2) + vakarienesKiekiai.get(indeksas));
+                    if (!produktas.getSkystis()
+                            && (vakarienesKiekiai.get(indeksas) / produktas.getPorcija() < 2)) {
+                        turimosKalorijos += (produktas.getPorcija() * produktas.getKilokalorijos()) / 100;
+                        vakarienesKiekiai.set(indeksas, (produktas.getPorcija() / 2) + vakarienesKiekiai.get(indeksas));
                     } else {
                         papildomas++;
                         if (papildomas % 10 == 0) {
-                            if (!produktas.skystis) {
-                                turimosKalorijos += ((produktas.porcija / 2) * produktas.kilokalorijos) / 100;
-                                vakarienesKiekiai.set(indeksas, (produktas.porcija / 2) + vakarienesKiekiai.get(indeksas));
+                            if (!produktas.getSkystis()) {
+                                turimosKalorijos += ((produktas.getPorcija() / 2) * produktas.getKilokalorijos()) / 100;
+                                vakarienesKiekiai.set(indeksas, (produktas.getPorcija() / 2) + vakarienesKiekiai.get(indeksas));
                             }
                         }
                     }
@@ -455,19 +455,19 @@ public class DietosSudarymas {
                 for (int j = 0; j < pusryciuKiekiai.get(i); j += 100) {
                     produktas = produktai.get(pusryciuPr.get(i));
                     if (pusryciuKiekiai.get(i) - j > 99) {
-                        baltymuKiekis += produktas.baltymai;
-                        angliavandeniuKiekis += produktas.angliavandeniai;
-                        riebaluKiekis += produktas.riebalai;
-                        skaidulinesMedziagos += produktas.skaidulines;
-                        kalcioKiekis += produktas.kalcis;
-                        cholesterolioKiekis += produktas.cholesterolis;
+                        baltymuKiekis += produktas.getBaltymai();
+                        angliavandeniuKiekis += produktas.getAngliavandeniai();
+                        riebaluKiekis += produktas.getRiebalai();
+                        skaidulinesMedziagos += produktas.getSkaidulines();
+                        kalcioKiekis += produktas.getKalcis();
+                        cholesterolioKiekis += produktas.getCholesterolis();
                     } else {
-                        baltymuKiekis += (produktas.baltymai * (pusryciuKiekiai.get(i) - j)) / 100;
-                        angliavandeniuKiekis += (produktas.angliavandeniai * (pusryciuKiekiai.get(i) - j)) / 100;
-                        riebaluKiekis += (produktas.riebalai * (pusryciuKiekiai.get(i) - j)) / 100;
-                        skaidulinesMedziagos += (produktas.skaidulines * (pusryciuKiekiai.get(i) - j)) / 100;
-                        kalcioKiekis += (produktas.kalcis * (pusryciuKiekiai.get(i) - j)) / 100;
-                        cholesterolioKiekis += (produktas.cholesterolis * (pusryciuKiekiai.get(i) - j)) / 100;
+                        baltymuKiekis += (produktas.getBaltymai() * (pusryciuKiekiai.get(i) - j)) / 100;
+                        angliavandeniuKiekis += (produktas.getAngliavandeniai() * (pusryciuKiekiai.get(i) - j)) / 100;
+                        riebaluKiekis += (produktas.getRiebalai() * (pusryciuKiekiai.get(i) - j)) / 100;
+                        skaidulinesMedziagos += (produktas.getSkaidulines() * (pusryciuKiekiai.get(i) - j)) / 100;
+                        kalcioKiekis += (produktas.getKalcis() * (pusryciuKiekiai.get(i) - j)) / 100;
+                        cholesterolioKiekis += (produktas.getCholesterolis() * (pusryciuKiekiai.get(i) - j)) / 100;
                     }
                 }
             }
@@ -476,19 +476,19 @@ public class DietosSudarymas {
                 for (int j = 0; j < priespieciuKiekiai.get(i); j += 100) {
                     produktas = produktai.get(priespieciuPr.get(i));
                     if (priespieciuKiekiai.get(i) - j > 99) {
-                        baltymuKiekis += produktas.baltymai;
-                        angliavandeniuKiekis += produktas.angliavandeniai;
-                        riebaluKiekis += produktas.riebalai;
-                        skaidulinesMedziagos += produktas.skaidulines;
-                        kalcioKiekis += produktas.kalcis;
-                        cholesterolioKiekis += produktas.cholesterolis;
+                        baltymuKiekis += produktas.getBaltymai();
+                        angliavandeniuKiekis += produktas.getAngliavandeniai();
+                        riebaluKiekis += produktas.getRiebalai();
+                        skaidulinesMedziagos += produktas.getSkaidulines();
+                        kalcioKiekis += produktas.getKalcis();
+                        cholesterolioKiekis += produktas.getCholesterolis();
                     } else {
-                        baltymuKiekis += (produktas.baltymai * (priespieciuKiekiai.get(i) - j)) / 100;
-                        angliavandeniuKiekis += (produktas.angliavandeniai * (priespieciuKiekiai.get(i) - j)) / 100;
-                        riebaluKiekis += (produktas.riebalai * (priespieciuKiekiai.get(i) - j)) / 100;
-                        skaidulinesMedziagos += (produktas.skaidulines * (priespieciuKiekiai.get(i) - j)) / 100;
-                        kalcioKiekis += (produktas.kalcis * (priespieciuKiekiai.get(i) - j)) / 100;
-                        cholesterolioKiekis += (produktas.cholesterolis * (priespieciuKiekiai.get(i) - j)) / 100;
+                        baltymuKiekis += (produktas.getBaltymai() * (priespieciuKiekiai.get(i) - j)) / 100;
+                        angliavandeniuKiekis += (produktas.getAngliavandeniai() * (priespieciuKiekiai.get(i) - j)) / 100;
+                        riebaluKiekis += (produktas.getRiebalai() * (priespieciuKiekiai.get(i) - j)) / 100;
+                        skaidulinesMedziagos += (produktas.getSkaidulines() * (priespieciuKiekiai.get(i) - j)) / 100;
+                        kalcioKiekis += (produktas.getKalcis() * (priespieciuKiekiai.get(i) - j)) / 100;
+                        cholesterolioKiekis += (produktas.getCholesterolis() * (priespieciuKiekiai.get(i) - j)) / 100;
                     }
                 }
             }
@@ -497,19 +497,19 @@ public class DietosSudarymas {
                 for (int j = 0; j < pietuKiekiai.get(i); j += 100) {
                     produktas = produktai.get(pietuPr.get(i));
                     if (pietuKiekiai.get(i) - j > 99) {
-                        baltymuKiekis += produktas.baltymai;
-                        angliavandeniuKiekis += produktas.angliavandeniai;
-                        riebaluKiekis += produktas.riebalai;
-                        skaidulinesMedziagos += produktas.skaidulines;
-                        kalcioKiekis += produktas.kalcis;
-                        cholesterolioKiekis += produktas.cholesterolis;
+                        baltymuKiekis += produktas.getBaltymai();
+                        angliavandeniuKiekis += produktas.getAngliavandeniai();
+                        riebaluKiekis += produktas.getRiebalai();
+                        skaidulinesMedziagos += produktas.getSkaidulines();
+                        kalcioKiekis += produktas.getKalcis();
+                        cholesterolioKiekis += produktas.getCholesterolis();
                     } else {
-                        baltymuKiekis += (produktas.baltymai * (pietuKiekiai.get(i) - j)) / 100;
-                        angliavandeniuKiekis += (produktas.angliavandeniai * (pietuKiekiai.get(i) - j)) / 100;
-                        riebaluKiekis += (produktas.riebalai * (pietuKiekiai.get(i) - j)) / 100;
-                        skaidulinesMedziagos += (produktas.skaidulines * (pietuKiekiai.get(i) - j)) / 100;
-                        kalcioKiekis += (produktas.kalcis * (pietuKiekiai.get(i) - j)) / 100;
-                        cholesterolioKiekis += (produktas.cholesterolis * (pietuKiekiai.get(i) - j)) / 100;
+                        baltymuKiekis += (produktas.getBaltymai() * (pietuKiekiai.get(i) - j)) / 100;
+                        angliavandeniuKiekis += (produktas.getAngliavandeniai() * (pietuKiekiai.get(i) - j)) / 100;
+                        riebaluKiekis += (produktas.getRiebalai() * (pietuKiekiai.get(i) - j)) / 100;
+                        skaidulinesMedziagos += (produktas.getSkaidulines() * (pietuKiekiai.get(i) - j)) / 100;
+                        kalcioKiekis += (produktas.getKalcis() * (pietuKiekiai.get(i) - j)) / 100;
+                        cholesterolioKiekis += (produktas.getCholesterolis() * (pietuKiekiai.get(i) - j)) / 100;
                     }
                 }
             }
@@ -518,19 +518,19 @@ public class DietosSudarymas {
                 for (int j = 0; j < pavakariuKiekiai.get(i); j += 100) {
                     produktas = produktai.get(pavakariuPr.get(i));
                     if (pavakariuKiekiai.get(i) - j > 99) {
-                        baltymuKiekis += produktas.baltymai;
-                        angliavandeniuKiekis += produktas.angliavandeniai;
-                        riebaluKiekis += produktas.riebalai;
-                        skaidulinesMedziagos += produktas.skaidulines;
-                        kalcioKiekis += produktas.kalcis;
-                        cholesterolioKiekis += produktas.cholesterolis;
+                        baltymuKiekis += produktas.getBaltymai();
+                        angliavandeniuKiekis += produktas.getAngliavandeniai();
+                        riebaluKiekis += produktas.getRiebalai();
+                        skaidulinesMedziagos += produktas.getSkaidulines();
+                        kalcioKiekis += produktas.getKalcis();
+                        cholesterolioKiekis += produktas.getCholesterolis();
                     } else {
-                        baltymuKiekis += (produktas.baltymai * (pavakariuKiekiai.get(i) - j)) / 100;
-                        angliavandeniuKiekis += (produktas.angliavandeniai * (pavakariuKiekiai.get(i) - j)) / 100;
-                        riebaluKiekis += (produktas.riebalai * (pavakariuKiekiai.get(i) - j)) / 100;
-                        skaidulinesMedziagos += (produktas.skaidulines * (pavakariuKiekiai.get(i) - j)) / 100;
-                        kalcioKiekis += (produktas.kalcis * (pavakariuKiekiai.get(i) - j)) / 100;
-                        cholesterolioKiekis += (produktas.cholesterolis * (pavakariuKiekiai.get(i) - j)) / 100;
+                        baltymuKiekis += (produktas.getBaltymai() * (pavakariuKiekiai.get(i) - j)) / 100;
+                        angliavandeniuKiekis += (produktas.getAngliavandeniai() * (pavakariuKiekiai.get(i) - j)) / 100;
+                        riebaluKiekis += (produktas.getRiebalai() * (pavakariuKiekiai.get(i) - j)) / 100;
+                        skaidulinesMedziagos += (produktas.getSkaidulines() * (pavakariuKiekiai.get(i) - j)) / 100;
+                        kalcioKiekis += (produktas.getKalcis() * (pavakariuKiekiai.get(i) - j)) / 100;
+                        cholesterolioKiekis += (produktas.getCholesterolis() * (pavakariuKiekiai.get(i) - j)) / 100;
                     }
                 }
             }
@@ -539,19 +539,19 @@ public class DietosSudarymas {
                 for (int j = 0; j < vakarienesKiekiai.get(i); j += 100) {
                     produktas = produktai.get(vakarienesPr.get(i));
                     if (vakarienesKiekiai.get(i) - j > 99) {
-                        baltymuKiekis += produktas.baltymai;
-                        angliavandeniuKiekis += produktas.angliavandeniai;
-                        riebaluKiekis += produktas.riebalai;
-                        skaidulinesMedziagos += produktas.skaidulines;
-                        kalcioKiekis += produktas.kalcis;
-                        cholesterolioKiekis += produktas.cholesterolis;
+                        baltymuKiekis += produktas.getBaltymai();
+                        angliavandeniuKiekis += produktas.getAngliavandeniai();
+                        riebaluKiekis += produktas.getRiebalai();
+                        skaidulinesMedziagos += produktas.getSkaidulines();
+                        kalcioKiekis += produktas.getKalcis();
+                        cholesterolioKiekis += produktas.getCholesterolis();
                     } else {
-                        baltymuKiekis += (produktas.baltymai * (vakarienesKiekiai.get(i) - j)) / 100;
-                        angliavandeniuKiekis += (produktas.angliavandeniai * (vakarienesKiekiai.get(i) - j)) / 100;
-                        riebaluKiekis += (produktas.riebalai * (vakarienesKiekiai.get(i) - j)) / 100;
-                        skaidulinesMedziagos += (produktas.skaidulines * (vakarienesKiekiai.get(i) - j)) / 100;
-                        kalcioKiekis += (produktas.kalcis * (vakarienesKiekiai.get(i) - j)) / 100;
-                        cholesterolioKiekis += (produktas.cholesterolis * (vakarienesKiekiai.get(i) - j)) / 100;
+                        baltymuKiekis += (produktas.getBaltymai() * (vakarienesKiekiai.get(i) - j)) / 100;
+                        angliavandeniuKiekis += (produktas.getAngliavandeniai() * (vakarienesKiekiai.get(i) - j)) / 100;
+                        riebaluKiekis += (produktas.getRiebalai() * (vakarienesKiekiai.get(i) - j)) / 100;
+                        skaidulinesMedziagos += (produktas.getSkaidulines() * (vakarienesKiekiai.get(i) - j)) / 100;
+                        kalcioKiekis += (produktas.getKalcis() * (vakarienesKiekiai.get(i) - j)) / 100;
+                        cholesterolioKiekis += (produktas.getCholesterolis() * (vakarienesKiekiai.get(i) - j)) / 100;
                     }
                 }
             }
@@ -579,89 +579,89 @@ public class DietosSudarymas {
                 if (kartai == 3) {
                     for (int i = 0; i < pusryciuPr.size(); i++) {
                         produktas = produktai.get(pusryciuPr.get(i));
-                        if (produktas.skystis) {
-                            pusryciai += " " + produktas.pavadinimas + " " + pusryciuKiekiai.get(i) + "ml (iš viso energinė vertė: "
-                                    + (produktas.kilokalorijos * pusryciuKiekiai.get(i)) / 100 + "kcal)<br>";
+                        if (produktas.getSkystis()) {
+                            pusryciai += " " + produktas.getPavadinimas() + " " + pusryciuKiekiai.get(i) + "ml (iš viso energinė vertė: "
+                                    + (produktas.getKilokalorijos() * pusryciuKiekiai.get(i)) / 100 + "kcal)<br>";
                         } else {
-                            pusryciai += " " + produktas.pavadinimas + " " + pusryciuKiekiai.get(i) + "g (iš viso energinė vertė: "
-                                    + (produktas.kilokalorijos * pusryciuKiekiai.get(i)) / 100 + "kcal)<br>";
+                            pusryciai += " " + produktas.getPavadinimas() + " " + pusryciuKiekiai.get(i) + "g (iš viso energinė vertė: "
+                                    + (produktas.getKilokalorijos() * pusryciuKiekiai.get(i)) / 100 + "kcal)<br>";
                         }
                     }
 
                     for (int i = 0; i < pietuPr.size(); i++) {
                         produktas = produktai.get(pietuPr.get(i));
-                        if (produktas.skystis) {
-                            pietus += " " + produktas.pavadinimas + " " + pietuKiekiai.get(i) + "ml (iš viso energinė vertė: "
-                                    + (produktas.kilokalorijos * pietuKiekiai.get(i)) / 100 + "kcal)<br>";
+                        if (produktas.getSkystis()) {
+                            pietus += " " + produktas.getPavadinimas() + " " + pietuKiekiai.get(i) + "ml (iš viso energinė vertė: "
+                                    + (produktas.getKilokalorijos() * pietuKiekiai.get(i)) / 100 + "kcal)<br>";
                         } else {
-                            pietus += " " + produktas.pavadinimas + " " + pietuKiekiai.get(i) + "g (iš viso energinė vertė: "
-                                    + (produktas.kilokalorijos * pietuKiekiai.get(i)) / 100 + "kcal)<br>";
+                            pietus += " " + produktas.getPavadinimas() + " " + pietuKiekiai.get(i) + "g (iš viso energinė vertė: "
+                                    + (produktas.getKilokalorijos() * pietuKiekiai.get(i)) / 100 + "kcal)<br>";
                         }
                     }
 
                     for (int i = 0; i < vakarienesPr.size(); i++) {
                         produktas = produktai.get(vakarienesPr.get(i));
-                        if (produktas.skystis) {
-                            vakariene += " " + produktas.pavadinimas + " " + vakarienesKiekiai.get(i) + "ml (iš viso energinė vertė: "
-                                    + (produktas.kilokalorijos * vakarienesKiekiai.get(i)) / 100 + "kcal)<br>";
+                        if (produktas.getSkystis()) {
+                            vakariene += " " + produktas.getPavadinimas() + " " + vakarienesKiekiai.get(i) + "ml (iš viso energinė vertė: "
+                                    + (produktas.getKilokalorijos() * vakarienesKiekiai.get(i)) / 100 + "kcal)<br>";
                         } else {
-                            vakariene += " " + produktas.pavadinimas + " " + vakarienesKiekiai.get(i) + "g (iš viso energinė vertė: "
-                                    + (produktas.kilokalorijos * vakarienesKiekiai.get(i)) / 100 + "kcal)<br>";
+                            vakariene += " " + produktas.getPavadinimas() + " " + vakarienesKiekiai.get(i) + "g (iš viso energinė vertė: "
+                                    + (produktas.getKilokalorijos() * vakarienesKiekiai.get(i)) / 100 + "kcal)<br>";
                         }
                     }
                 } else {
                     for (int i = 0; i < pusryciuPr.size(); i++) {
                         produktas = produktai.get(pusryciuPr.get(i));
-                        if (produktas.skystis) {
-                            pusryciai += " " + produktas.pavadinimas + " " + pusryciuKiekiai.get(i) + "ml (iš viso energinė vertė: "
-                                    + (produktas.kilokalorijos * pusryciuKiekiai.get(i)) / 100 + "kcal)<br>";
+                        if (produktas.getSkystis()) {
+                            pusryciai += " " + produktas.getPavadinimas() + " " + pusryciuKiekiai.get(i) + "ml (iš viso energinė vertė: "
+                                    + (produktas.getKilokalorijos() * pusryciuKiekiai.get(i)) / 100 + "kcal)<br>";
                         } else {
-                            pusryciai += " " + produktas.pavadinimas + " " + pusryciuKiekiai.get(i) + "g (iš viso energinė vertė: "
-                                    + (produktas.kilokalorijos * pusryciuKiekiai.get(i)) / 100 + "kcal)<br>";
+                            pusryciai += " " + produktas.getPavadinimas() + " " + pusryciuKiekiai.get(i) + "g (iš viso energinė vertė: "
+                                    + (produktas.getKilokalorijos() * pusryciuKiekiai.get(i)) / 100 + "kcal)<br>";
                         }
                     }
 
                     for (int i = 0; i < priespieciuPr.size(); i++) {
                         produktas = produktai.get(priespieciuPr.get(i));
-                        if (produktas.skystis) {
-                            priespieciai += " " + produktas.pavadinimas + " " + priespieciuKiekiai.get(i) + "ml (iš viso energinė vertė: "
-                                    + (produktas.kilokalorijos * priespieciuKiekiai.get(i)) / 100 + "kcal)<br>";
+                        if (produktas.getSkystis()) {
+                            priespieciai += " " + produktas.getPavadinimas() + " " + priespieciuKiekiai.get(i) + "ml (iš viso energinė vertė: "
+                                    + (produktas.getKilokalorijos() * priespieciuKiekiai.get(i)) / 100 + "kcal)<br>";
                         } else {
-                            priespieciai += " " + produktas.pavadinimas + " " + priespieciuKiekiai.get(i) + "g (iš viso energinė vertė: "
-                                    + (produktas.kilokalorijos * priespieciuKiekiai.get(i)) / 100 + "kcal)<br>";
+                            priespieciai += " " + produktas.getPavadinimas() + " " + priespieciuKiekiai.get(i) + "g (iš viso energinė vertė: "
+                                    + (produktas.getKilokalorijos() * priespieciuKiekiai.get(i)) / 100 + "kcal)<br>";
                         }
                     }
 
                     for (int i = 0; i < pietuPr.size(); i++) {
                         produktas = produktai.get(pietuPr.get(i));
-                        if (produktas.skystis) {
-                            pietus += " " + produktas.pavadinimas + " " + pietuKiekiai.get(i) + "ml (iš viso energinė vertė: "
-                                    + (produktas.kilokalorijos * pietuKiekiai.get(i)) / 100 + "kcal)<br>";
+                        if (produktas.getSkystis()) {
+                            pietus += " " + produktas.getPavadinimas() + " " + pietuKiekiai.get(i) + "ml (iš viso energinė vertė: "
+                                    + (produktas.getKilokalorijos() * pietuKiekiai.get(i)) / 100 + "kcal)<br>";
                         } else {
-                            pietus += " " + produktas.pavadinimas + " " + pietuKiekiai.get(i) + "g (iš viso energinė vertė: "
-                                    + (produktas.kilokalorijos * pietuKiekiai.get(i)) / 100 + "kcal)<br>";
+                            pietus += " " + produktas.getPavadinimas() + " " + pietuKiekiai.get(i) + "g (iš viso energinė vertė: "
+                                    + (produktas.getKilokalorijos() * pietuKiekiai.get(i)) / 100 + "kcal)<br>";
                         }
                     }
 
                     for (int i = 0; i < pavakariuPr.size(); i++) {
                         produktas = produktai.get(pavakariuPr.get(i));
-                        if (produktas.skystis) {
-                            pavakariai += " " + produktas.pavadinimas + " " + pavakariuKiekiai.get(i) + "ml (iš viso energinė vertė: "
-                                    + (produktas.kilokalorijos * pavakariuKiekiai.get(i)) / 100 + "kcal)<br>";
+                        if (produktas.getSkystis()) {
+                            pavakariai += " " + produktas.getPavadinimas() + " " + pavakariuKiekiai.get(i) + "ml (iš viso energinė vertė: "
+                                    + (produktas.getKilokalorijos() * pavakariuKiekiai.get(i)) / 100 + "kcal)<br>";
                         } else {
-                            pavakariai += " " + produktas.pavadinimas + " " + pavakariuKiekiai.get(i) + "g (iš viso energinė vertė: "
-                                    + (produktas.kilokalorijos * pavakariuKiekiai.get(i)) / 100 + "kcal)<br>";
+                            pavakariai += " " + produktas.getPavadinimas() + " " + pavakariuKiekiai.get(i) + "g (iš viso energinė vertė: "
+                                    + (produktas.getKilokalorijos() * pavakariuKiekiai.get(i)) / 100 + "kcal)<br>";
                         }
                     }
 
                     for (int i = 0; i < vakarienesPr.size(); i++) {
                         produktas = produktai.get(vakarienesPr.get(i));
-                        if (produktas.skystis) {
-                            vakariene += " " + produktas.pavadinimas + " " + vakarienesKiekiai.get(i) + "ml (iš viso energinė vertė: "
-                                    + (produktas.kilokalorijos * vakarienesKiekiai.get(i)) / 100 + "kcal)<br>";
+                        if (produktas.getSkystis()) {
+                            vakariene += " " + produktas.getPavadinimas() + " " + vakarienesKiekiai.get(i) + "ml (iš viso energinė vertė: "
+                                    + (produktas.getKilokalorijos() * vakarienesKiekiai.get(i)) / 100 + "kcal)<br>";
                         } else {
-                            vakariene += " " + produktas.pavadinimas + " " + vakarienesKiekiai.get(i) + "g (iš viso energinė vertė: "
-                                    + (produktas.kilokalorijos * vakarienesKiekiai.get(i)) / 100 + "kcal)<br>";
+                            vakariene += " " + produktas.getPavadinimas() + " " + vakarienesKiekiai.get(i) + "g (iš viso energinė vertė: "
+                                    + (produktas.getKilokalorijos() * vakarienesKiekiai.get(i)) / 100 + "kcal)<br>";
                         }
                     }
                 }
