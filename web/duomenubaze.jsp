@@ -46,14 +46,14 @@
                             ArrayList<MaistoProduktas> produktai = ds.gautiProduktus(new ArrayList<String>(), new ArrayList<String>());
                             for (int i = 0; i < produktai.size(); i++) {%>
                         <tr>
-                            <td><input value="<%=produktai.get(i).pavadinimas%>" disabled="true" size="23" style="background: yellow"></td>
-                            <td><input value="<%=produktai.get(i).kilokalorijos%>" disabled="true" size="9" style="background: yellow"></td>
-                            <td><input value="<%=ds.suapvalinti((double) produktai.get(i).baltymai)%>" disabled="true" size="10" style="background: yellow"></td>
-                            <td><input value="<%=ds.suapvalinti((double) produktai.get(i).angliavandeniai)%>" disabled="true" size="15" style="background: yellow"></td>
-                            <td><input value="<%=ds.suapvalinti((double) produktai.get(i).riebalai)%>" disabled="true" size="9" style="background: yellow"></td>
-                            <td><input value="<%=ds.suapvalinti((double) produktai.get(i).cholesterolis)%>" disabled="true" size="13" style="background: yellow"></td>
-                            <td><input value="<%=ds.suapvalinti((double) produktai.get(i).kalcis)%>" disabled="true" size="8" style="background: yellow"></td>
-                            <td><input value="<%=ds.suapvalinti((double) produktai.get(i).skaidulines)%>" disabled="true" size="14" style="background: yellow"></td>
+                            <td><input value="<%=produktai.get(i).getPavadinimas()%>" disabled="true" size="23" style="background: yellow"></td>
+                            <td><input value="<%=produktai.get(i).getKilokalorijos()%>" disabled="true" size="9" style="background: yellow"></td>
+                            <td><input value="<%=ds.suapvalinti((double) produktai.get(i).getBaltymai())%>" disabled="true" size="10" style="background: yellow"></td>
+                            <td><input value="<%=ds.suapvalinti((double) produktai.get(i).getAngliavandeniai())%>" disabled="true" size="15" style="background: yellow"></td>
+                            <td><input value="<%=ds.suapvalinti((double) produktai.get(i).getRiebalai())%>" disabled="true" size="9" style="background: yellow"></td>
+                            <td><input value="<%=ds.suapvalinti((double) produktai.get(i).getCholesterolis())%>" disabled="true" size="13" style="background: yellow"></td>
+                            <td><input value="<%=ds.suapvalinti((double) produktai.get(i).getKalcis())%>" disabled="true" size="8" style="background: yellow"></td>
+                            <td><input value="<%=ds.suapvalinti((double) produktai.get(i).getSkaidulines())%>" disabled="true" size="14" style="background: yellow"></td>
                         </tr>
                         <%}%>
                     </table>
