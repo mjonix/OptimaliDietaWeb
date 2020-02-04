@@ -87,15 +87,18 @@
                     DietosSudarymas ds = new DietosSudarymas();
                     int poreikis = ds.kilokalorijuPoreikis(lytis, ugis, svoris, amzius, aktyvumas, tikslas);
                     double kmi = ds.kmi(ugis, svoris);
+                    String rezultatas = "Pagal pateiktus duomenis, rekomenduojama paros energijos suvartojimo norma yra: " + poreikis + "kcal <br>" + ds.pateiktiMedziaguNormas(kmi,
+                            aktyvumas, poreikis, amzius, lytis) + "<br><br>Pavyzdinė dieta:<br><br>" + ds.parinktiDieta(kmi, poreikis, aktyvumas, amzius, lytis, kartai,
+                                    laikotarpis, nepageidaujamaKategorija, new ArrayList<String>(), ignoruojamiKriterijai, mesa);
                 %>
-                Pagal pateiktus duomenis, rekomenduojama paros energijos suvartojimo norma yra: <%= poreikis%>kcal <br> <%= ds.pateiktiMedziaguNormas(kmi,
-                aktyvumas, poreikis, amzius, lytis)%><br><br>Pavyzdinė dieta:<br><br>
-                <%=ds.parinktiDieta(kmi, poreikis, aktyvumas, amzius, lytis, kartai, laikotarpis, nepageidaujamaKategorija,
-                new ArrayList<String>(), ignoruojamiKriterijai, mesa)%>
-
-                <form  method="post">
-                    <input type="submit" value="Sudaryti dietą iš naujo"  class="btn-success btn-xs">
-                </form>
+                <%=rezultatas%>
+                <div class="row">
+                    <form  method="post">
+                        <input type="submit" value="Sudaryti dietą iš naujo"  class="btn-success btn-xs">
+                    </form>
+                    <button class="btn-success btn-xs" onclick="this.style.display = 'none';
+                            window.open('parsiuntimopatvirtinimas.jsp?rezultatas=<%=rezultatas%>')">Parsisiųsti dietą</button>
+                </div>
             </div>
         </div>
     </body>

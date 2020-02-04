@@ -1,6 +1,9 @@
 package dietossudarymas;
 
-import java.nio.file.Path;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -55,7 +58,7 @@ public class DietosSudarymas {
     public String pateiktiMedziaguNormas(double kmi, int aktyvumas, int kalorijuPoreikis, int amzius, int lytis) {
         apskaiciuotiNormas(kmi, kalorijuPoreikis, aktyvumas, amzius, lytis, 1);
         return "Rekomenduojama suvartoti: " + (baltymaiMin / 4) + " - " + (baltymaiMax / 4) + "g baltymų, " + (angliavandeniaiMin / 4) + " - " + (angliavandeniaiMax / 4)
-                + "g angliavandenių, " + (riebalaiMin / 9) + " - " + (riebalaiMax / 9) + "g riebalų,<br> " + ((double) kalcisMin / 1000000) + " - "
+                + "g angliavandenių, " + (riebalaiMin / 9) + " - " + (riebalaiMax / 9) + "g riebalų,<br>" + ((double) kalcisMin / 1000000) + " - "
                 + ((double) kalcisMax / 1000000) + "g kalcio ir " + ((int) Math.round((kalorijuPoreikis * 14) / 1000) - 5) + " - "
                 + ((int) Math.round((kalorijuPoreikis * 14) / 1000)
                 + 5) + "g skaidulinių medžiagų.";
@@ -136,8 +139,7 @@ public class DietosSudarymas {
     public ArrayList<MaistoProduktas> gautiProduktus(ArrayList<String> nepageidaujamaKategorija,
             ArrayList<String> nepageidaujamiProduktai) throws SQLException, ClassNotFoundException {
         Class.forName("org.sqlite.JDBC");
-        Path kelias = Paths.get("");
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:" + kelias.toAbsolutePath().toString() + "/DUOMENU_BAZE.db");
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:" + Paths.get("").toAbsolutePath().toString() + "/DUOMENU_BAZE.db");
         Statement state = conn.createStatement();
         ResultSet rs = state.executeQuery("select * from MAISTO_PRODUKTAI;");
 
@@ -200,13 +202,13 @@ public class DietosSudarymas {
     public String parinktiDieta(double kmi, int kalorijuPoreikis, int aktyvumas, int amzius, int lytis,
             int kartai, int dienos, ArrayList<String> nepageidaujamaKategorija,
             ArrayList<String> nepageidaujamiProduktai, ArrayList<String> ignoruojami,
-            boolean mesaPietums) throws ClassNotFoundException, SQLException {
+            boolean mesaPietums) throws ClassNotFoundException, SQLException, IOException {
 
         ArrayList<MaistoProduktas> produktai = gautiProduktus(nepageidaujamaKategorija, nepageidaujamiProduktai);
 
         if (!imanomaSudarytiDieta(produktai, kartai, mesaPietums)) {
-            return " * Dietos sudaryti neįmanoma. Prašome pasirinkti mažiau produktų, kaip nepageidaujamus, arba"
-                    + "<br> įtraukite naujų produktų į duomenų bazę.";
+            return "* Dietos sudaryti neįmanoma. Prašome pasirinkti mažiau produktų, kaip nepageidaujamus, arba"
+                    + "<br>įtraukite naujų produktų į duomenų bazę.";
         }
         apskaiciuotiNormas(kmi, kalorijuPoreikis, aktyvumas, amzius, lytis, kartai);
         Random r = new Random();
@@ -224,8 +226,8 @@ public class DietosSudarymas {
         while (true) {
             if (dietosGeneravimoTrukme > 60 && kartoti == dienos && bandymas > 50000) {
                 laikmatis.cancel();
-                return " * Pilnavertės dietos sudaryti nepavyko. Prašome pasirinkti mažiau produktų, kaip"
-                        + " nepageidaujamus,<br> arba įtraukite naujų produktų į duomenų bazę.";
+                return "* Pilnavertės dietos sudaryti nepavyko. Prašome pasirinkti mažiau produktų, kaip"
+                        + " nepageidaujamus,<br>arba įtraukite naujų produktų į duomenų bazę.";
             }
             bandymas++;
             ArrayList<Integer> pusryciuPr = new ArrayList<>();
@@ -572,18 +574,18 @@ public class DietosSudarymas {
                     || ignoruojami.contains("kalcis")) && ((cholesterolioKiekis < cholesterolioNorma)
                     || ignoruojami.contains("cholesterolis")) && !leidimas) {
 
-                String pusryciai = " Pusryčiams: <br><br>", priespieciai = "<br> Priešpiečiams: <br><br>",
-                        pietus = "<br> Pietums: <br><br>", pavakariai = "<br> Pavakariams: <br><br>",
-                        vakariene = "<br> Vakarienei: <br><br>";
+                String pusryciai = "Pusryčiams: <br><br>", priespieciai = "<br>Priešpiečiams: <br><br>",
+                        pietus = "<br>Pietums: <br><br>", pavakariai = "<br>Pavakariams: <br><br>",
+                        vakariene = "<br>Vakarienei: <br><br>";
 
                 if (kartai == 3) {
                     for (int i = 0; i < pusryciuPr.size(); i++) {
                         produktas = produktai.get(pusryciuPr.get(i));
                         if (produktas.getSkystis()) {
-                            pusryciai += " " + produktas.getPavadinimas() + " " + pusryciuKiekiai.get(i) + "ml (iš viso energinė vertė: "
+                            pusryciai += produktas.getPavadinimas() + " " + pusryciuKiekiai.get(i) + "ml (iš viso energinė vertė: "
                                     + (produktas.getKilokalorijos() * pusryciuKiekiai.get(i)) / 100 + "kcal)<br>";
                         } else {
-                            pusryciai += " " + produktas.getPavadinimas() + " " + pusryciuKiekiai.get(i) + "g (iš viso energinė vertė: "
+                            pusryciai += produktas.getPavadinimas() + " " + pusryciuKiekiai.get(i) + "g (iš viso energinė vertė: "
                                     + (produktas.getKilokalorijos() * pusryciuKiekiai.get(i)) / 100 + "kcal)<br>";
                         }
                     }
@@ -591,10 +593,10 @@ public class DietosSudarymas {
                     for (int i = 0; i < pietuPr.size(); i++) {
                         produktas = produktai.get(pietuPr.get(i));
                         if (produktas.getSkystis()) {
-                            pietus += " " + produktas.getPavadinimas() + " " + pietuKiekiai.get(i) + "ml (iš viso energinė vertė: "
+                            pietus += produktas.getPavadinimas() + " " + pietuKiekiai.get(i) + "ml (iš viso energinė vertė: "
                                     + (produktas.getKilokalorijos() * pietuKiekiai.get(i)) / 100 + "kcal)<br>";
                         } else {
-                            pietus += " " + produktas.getPavadinimas() + " " + pietuKiekiai.get(i) + "g (iš viso energinė vertė: "
+                            pietus += produktas.getPavadinimas() + " " + pietuKiekiai.get(i) + "g (iš viso energinė vertė: "
                                     + (produktas.getKilokalorijos() * pietuKiekiai.get(i)) / 100 + "kcal)<br>";
                         }
                     }
@@ -602,10 +604,10 @@ public class DietosSudarymas {
                     for (int i = 0; i < vakarienesPr.size(); i++) {
                         produktas = produktai.get(vakarienesPr.get(i));
                         if (produktas.getSkystis()) {
-                            vakariene += " " + produktas.getPavadinimas() + " " + vakarienesKiekiai.get(i) + "ml (iš viso energinė vertė: "
+                            vakariene += produktas.getPavadinimas() + " " + vakarienesKiekiai.get(i) + "ml (iš viso energinė vertė: "
                                     + (produktas.getKilokalorijos() * vakarienesKiekiai.get(i)) / 100 + "kcal)<br>";
                         } else {
-                            vakariene += " " + produktas.getPavadinimas() + " " + vakarienesKiekiai.get(i) + "g (iš viso energinė vertė: "
+                            vakariene += produktas.getPavadinimas() + " " + vakarienesKiekiai.get(i) + "g (iš viso energinė vertė: "
                                     + (produktas.getKilokalorijos() * vakarienesKiekiai.get(i)) / 100 + "kcal)<br>";
                         }
                     }
@@ -613,10 +615,10 @@ public class DietosSudarymas {
                     for (int i = 0; i < pusryciuPr.size(); i++) {
                         produktas = produktai.get(pusryciuPr.get(i));
                         if (produktas.getSkystis()) {
-                            pusryciai += " " + produktas.getPavadinimas() + " " + pusryciuKiekiai.get(i) + "ml (iš viso energinė vertė: "
+                            pusryciai += produktas.getPavadinimas() + " " + pusryciuKiekiai.get(i) + "ml (iš viso energinė vertė: "
                                     + (produktas.getKilokalorijos() * pusryciuKiekiai.get(i)) / 100 + "kcal)<br>";
                         } else {
-                            pusryciai += " " + produktas.getPavadinimas() + " " + pusryciuKiekiai.get(i) + "g (iš viso energinė vertė: "
+                            pusryciai += produktas.getPavadinimas() + " " + pusryciuKiekiai.get(i) + "g (iš viso energinė vertė: "
                                     + (produktas.getKilokalorijos() * pusryciuKiekiai.get(i)) / 100 + "kcal)<br>";
                         }
                     }
@@ -624,10 +626,10 @@ public class DietosSudarymas {
                     for (int i = 0; i < priespieciuPr.size(); i++) {
                         produktas = produktai.get(priespieciuPr.get(i));
                         if (produktas.getSkystis()) {
-                            priespieciai += " " + produktas.getPavadinimas() + " " + priespieciuKiekiai.get(i) + "ml (iš viso energinė vertė: "
+                            priespieciai += produktas.getPavadinimas() + " " + priespieciuKiekiai.get(i) + "ml (iš viso energinė vertė: "
                                     + (produktas.getKilokalorijos() * priespieciuKiekiai.get(i)) / 100 + "kcal)<br>";
                         } else {
-                            priespieciai += " " + produktas.getPavadinimas() + " " + priespieciuKiekiai.get(i) + "g (iš viso energinė vertė: "
+                            priespieciai += produktas.getPavadinimas() + " " + priespieciuKiekiai.get(i) + "g (iš viso energinė vertė: "
                                     + (produktas.getKilokalorijos() * priespieciuKiekiai.get(i)) / 100 + "kcal)<br>";
                         }
                     }
@@ -635,10 +637,10 @@ public class DietosSudarymas {
                     for (int i = 0; i < pietuPr.size(); i++) {
                         produktas = produktai.get(pietuPr.get(i));
                         if (produktas.getSkystis()) {
-                            pietus += " " + produktas.getPavadinimas() + " " + pietuKiekiai.get(i) + "ml (iš viso energinė vertė: "
+                            pietus += produktas.getPavadinimas() + " " + pietuKiekiai.get(i) + "ml (iš viso energinė vertė: "
                                     + (produktas.getKilokalorijos() * pietuKiekiai.get(i)) / 100 + "kcal)<br>";
                         } else {
-                            pietus += " " + produktas.getPavadinimas() + " " + pietuKiekiai.get(i) + "g (iš viso energinė vertė: "
+                            pietus += produktas.getPavadinimas() + " " + pietuKiekiai.get(i) + "g (iš viso energinė vertė: "
                                     + (produktas.getKilokalorijos() * pietuKiekiai.get(i)) / 100 + "kcal)<br>";
                         }
                     }
@@ -646,10 +648,10 @@ public class DietosSudarymas {
                     for (int i = 0; i < pavakariuPr.size(); i++) {
                         produktas = produktai.get(pavakariuPr.get(i));
                         if (produktas.getSkystis()) {
-                            pavakariai += " " + produktas.getPavadinimas() + " " + pavakariuKiekiai.get(i) + "ml (iš viso energinė vertė: "
+                            pavakariai += produktas.getPavadinimas() + " " + pavakariuKiekiai.get(i) + "ml (iš viso energinė vertė: "
                                     + (produktas.getKilokalorijos() * pavakariuKiekiai.get(i)) / 100 + "kcal)<br>";
                         } else {
-                            pavakariai += " " + produktas.getPavadinimas() + " " + pavakariuKiekiai.get(i) + "g (iš viso energinė vertė: "
+                            pavakariai += produktas.getPavadinimas() + " " + pavakariuKiekiai.get(i) + "g (iš viso energinė vertė: "
                                     + (produktas.getKilokalorijos() * pavakariuKiekiai.get(i)) / 100 + "kcal)<br>";
                         }
                     }
@@ -657,10 +659,10 @@ public class DietosSudarymas {
                     for (int i = 0; i < vakarienesPr.size(); i++) {
                         produktas = produktai.get(vakarienesPr.get(i));
                         if (produktas.getSkystis()) {
-                            vakariene += " " + produktas.getPavadinimas() + " " + vakarienesKiekiai.get(i) + "ml (iš viso energinė vertė: "
+                            vakariene += produktas.getPavadinimas() + " " + vakarienesKiekiai.get(i) + "ml (iš viso energinė vertė: "
                                     + (produktas.getKilokalorijos() * vakarienesKiekiai.get(i)) / 100 + "kcal)<br>";
                         } else {
-                            vakariene += " " + produktas.getPavadinimas() + " " + vakarienesKiekiai.get(i) + "g (iš viso energinė vertė: "
+                            vakariene += produktas.getPavadinimas() + " " + vakarienesKiekiai.get(i) + "g (iš viso energinė vertė: "
                                     + (produktas.getKilokalorijos() * vakarienesKiekiai.get(i)) / 100 + "kcal)<br>";
                         }
                     }
@@ -676,10 +678,10 @@ public class DietosSudarymas {
 
                 if (kartai == 3) {
                     rezultatas += "------------------------------------------------------------------------------------------------------------------------------------------------<br>"
-                            + " " + (dienos - kartoti + 1) + "-oji diena:<br><br>" + pusryciai + pietus + vakariene;
+                            + (dienos - kartoti + 1) + "-oji diena:<br><br>" + pusryciai + pietus + vakariene;
                 } else {
                     rezultatas += "------------------------------------------------------------------------------------------------------------------------------------------------<br>"
-                            + " " + (dienos - kartoti + 1) + "-oji diena:<br><br>" + pusryciai + priespieciai + pietus + pavakariai + vakariene;
+                            + (dienos - kartoti + 1) + "-oji diena:<br><br>" + pusryciai + priespieciai + pietus + pavakariai + vakariene;
                 }
 
                 kartoti--;
@@ -705,6 +707,25 @@ public class DietosSudarymas {
                     riebalaiMax *= 1.01;
                 }
             }
+        }
+    }
+
+    public static void parsiustiFaila(String rezultatas) throws IOException {
+        rezultatas = rezultatas.replace("<br>", "\n");
+        rezultatas = rezultatas.replace("--------------------------------------"
+                + "----------------------------------------------------------"
+                + "------------------------------------------------", "------"
+                + "--------------------------------------------------"
+                + "----------------------------------");
+        String kelias = System.getProperty("user.home") + "/Downloads/dieta.txt";
+        int failoNumeris = 2;
+        while (new File(kelias).exists()) {
+            kelias = System.getProperty("user.home") + "/Downloads/dieta-" + failoNumeris + ".txt";
+            failoNumeris++;
+        }
+        FileWriter fileWriter = new FileWriter(kelias, false);
+        try (PrintWriter printWriter = new PrintWriter(fileWriter)) {
+            printWriter.printf("%s" + "%n", rezultatas);
         }
     }
 }
