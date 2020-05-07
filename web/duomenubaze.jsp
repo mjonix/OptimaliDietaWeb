@@ -7,9 +7,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Maisto produktų duomenų bazė</title>
     </head>
-    
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-
     <body id="main">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <form action="http://localhost:8080/OptimaliDietaWeb/index.jsp">
