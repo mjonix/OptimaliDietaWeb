@@ -19,9 +19,6 @@
         <div class="container">
             <div class="jumbotron">
                 <h1>Dietos planas parsiųstas sėkmingai! Jį rasite savo parsiųstų failų kataloge.</h1>
-                <form id="planas">
-                    <input type="submit" value="Peržiūrėti planą" class="btn-success btn-xs">
-                </form>
             </div>
         </div>
     </body>
@@ -35,11 +32,6 @@
             color: white;
         }
     </style>
-    <script>
-        document.getElementById('planas').onsubmit = function () {
-            alert();
-        }
-    </script>
     <%
         request.setCharacterEncoding("UTF-8");
         DietosSudarymas.parsiustiFaila(request.getParameter("rezultatas"));
